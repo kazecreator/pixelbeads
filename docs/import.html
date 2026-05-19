@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="打开玩豆（BeadsMaker）导入分享图纸。">
+  <title>Import Pattern — 玩豆（BeadsMaker）</title>
+  <script src="language.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-shell">
+    <nav class="site-nav" aria-label="Main navigation">
+      <a class="brand-link" href="index.html" aria-label="玩豆（BeadsMaker）首页">
+        <img src="assets/app-icon.png" alt="">
+        <span data-lang-block="zh">玩豆</span><span data-lang-block="en">BeadsMaker</span>
+      </a>
+      <div class="nav-links">
+        <a href="https://apps.apple.com/app/beadsmaker/id6764291982">App Store</a>
+        <a href="support.html"><span data-lang-block="zh">支持</span><span data-lang-block="en">Support</span></a>
+        <a href="privacy.html"><span data-lang-block="zh">隐私</span><span data-lang-block="en">Privacy</span></a>
+        <div class="language-switch" aria-label="Language">
+          <button type="button" data-set-language="zh">中</button>
+          <button type="button" data-set-language="en">EN</button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="content-page import-page">
+      <article class="content-card import-card">
+        <img class="import-icon" src="assets/app-icon.png" alt="">
+        <p class="eyebrow"><span data-lang-block="zh">分享图纸</span><span data-lang-block="en">Shared pattern</span></p>
+        <div data-lang-block="zh">
+          <h1>正在打开玩豆</h1>
+          <p>如果你已经安装玩豆，图纸会在 app 中导入。未安装时，请前往 App Store 下载。</p>
+        </div>
+        <div data-lang-block="en">
+          <h1>Opening BeadsMaker</h1>
+          <p>If BeadsMaker is installed, the shared pattern will import in the app. If it is not installed, download it from the App Store.</p>
+        </div>
+        <div class="cta-row">
+          <a class="button primary" id="open-app-link" href="https://apps.apple.com/app/beadsmaker/id6764291982"><span data-lang-block="zh">打开玩豆</span><span data-lang-block="en">Open BeadsMaker</span></a>
+          <a class="button" href="https://apps.apple.com/app/beadsmaker/id6764291982"><span data-lang-block="zh">前往 App Store</span><span data-lang-block="en">Open App Store</span></a>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <span>&copy; 2026 玩豆（BeadsMaker）</span>
+      <span><a href="index.html"><span data-lang-block="zh">首页</span><span data-lang-block="en">Home</span></a> · <a href="support.html"><span data-lang-block="zh">支持</span><span data-lang-block="en">Support</span></a></span>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var appStoreURL = "https://apps.apple.com/app/beadsmaker/id6764291982";
+      var params = new URLSearchParams(window.location.search);
+      var payload = params.get("p") || "";
+      var openLink = document.getElementById("open-app-link");
+      var appURL = payload ? "beadsmaker://import?p=" + encodeURIComponent(payload) : appStoreURL;
+      var leftPage = false;
+
+      openLink.href = appURL;
+      window.addEventListener("pagehide", function () { leftPage = true; });
+      document.addEventListener("visibilitychange", function () {
+        if (document.visibilityState === "hidden") {
+          leftPage = true;
+        }
+      });
+
+      function openAppOrStore() {
+        if (!payload) {
+          window.location.replace(appStoreURL);
+          return;
+        }
+        window.location.href = appURL;
+        window.setTimeout(function () {
+          if (!leftPage && document.visibilityState === "visible") {
+            window.location.href = appStoreURL;
+          }
+        }, 3200);
+      }
+
+      window.setTimeout(openAppOrStore, 350);
+    }());
+  </script>
+</body>
+</html>

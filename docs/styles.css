@@ -346,6 +346,24 @@ h1 {
   padding-left: 22px;
 }
 
+.import-page {
+  display: grid;
+  min-height: calc(100svh - 180px);
+  place-items: center;
+}
+
+.import-card {
+  width: min(100%, 560px);
+}
+
+.import-icon {
+  width: 72px;
+  height: 72px;
+  margin-bottom: 22px;
+  border-radius: 18px;
+  box-shadow: 0 18px 42px rgba(17, 17, 17, 0.16);
+}
+
 .muted {
   color: var(--muted);
 }
